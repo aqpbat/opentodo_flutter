@@ -11,8 +11,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:opentodo_flutter/domain/local_day.dart';
 import 'package:opentodo_flutter/domain/today.dart';
 
-import 'support/test_zones.dart';
-
 SlotTask _slot(Map<String, dynamic> t) => SlotTask(
   id: t['id'] as String,
   createdAt: t['created_at'] as num,
@@ -260,8 +258,8 @@ void main() {
         'ny',
         due: {'date': '2026-11-02', 'time': '20:00', 'tz': 'America/New_York'},
       );
-      const berlin = ViewerZone('Europe/Berlin', offsetOf: testZoneOffset);
-      const la = ViewerZone('America/Los_Angeles', offsetOf: testZoneOffset);
+      const berlin = ViewerZone('Europe/Berlin');
+      const la = ViewerZone('America/Los_Angeles');
       expect(inToday(ny, '2026-11-02', berlin), isFalse);
       expect(inToday(ny, '2026-11-03', berlin), isTrue);
       expect(inToday(ny, '2026-11-02', la), isTrue);

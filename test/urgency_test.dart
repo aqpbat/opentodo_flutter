@@ -9,8 +9,6 @@ import 'package:opentodo_flutter/domain/dependencies.dart';
 import 'package:opentodo_flutter/domain/local_day.dart';
 import 'package:opentodo_flutter/domain/urgency.dart';
 
-import 'support/test_zones.dart';
-
 void main() {
   final vectors = jsonDecode(
     File('test/vectors/urgency.vectors.json').readAsStringSync(),
@@ -21,7 +19,7 @@ void main() {
       test(v['name'] as String, () {
         final task = v['task'] as Map<String, dynamic>;
         final all = [task, ...(v['others'] as List).cast<Map<String, dynamic>>()];
-        final zone = ViewerZone(v['zone'] as String, offsetOf: testZoneOffset);
+        final zone = ViewerZone(v['zone'] as String);
         final dayStart = (v['day_start'] as num).toInt();
         final now = DateTime.parse(v['now'] as String).millisecondsSinceEpoch;
         final today = zone.logicalDay(now, dayStart);
