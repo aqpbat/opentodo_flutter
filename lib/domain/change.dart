@@ -26,15 +26,30 @@ class Change {
   String toString() => 'Change($entity/$entityId $patch)';
 }
 
+final RegExp _fieldId = RegExp(r'^[A-Za-z0-9_-]{1,64}$');
+
 /// The ops of one batch: one per field, all with the same `ts` and `device`.
+/// A task's `fields` map (custom field values) unfolds into one `fields.<id>`
+/// op per custom field.
 List<Op> changesToOps(
   Iterable<Change> changes, {
   required int ts,
   required String device,
   String Function() newId = uuid,
-}) =>
-    [
-      for (final c in changes)
-        for (final e in c.patch.entries)
-          Op(id: newId(), entity: c.entity, entityId: c.entityId, field: e.key, value: e.value, ts: ts, device: device),
-    ];
+}) {
+  final ops = <Op>[];
+  for (final c in changes) {
+    c.patch.forEach((field, value) {
+      if (c.entity == 'task' && field == 'fields') {
+        ((value as Map?) ?? const {}).forEach((id, v) {
+          if (_fieldId.hasMatch(id as String)) {
+            ops.add(Op(id: newId(), entity: c.entity, entityId: c.entityId, field: 'fields.$id', value: v, ts: ts, device: device));
+          }
+        });
+        return;
+      }
+      ops.add(Op(id: newId(), entity: c.entity, entityId: c.entityId, field: field, value: value, ts: ts, device: device));
+    });
+  }
+  return ops;
+}

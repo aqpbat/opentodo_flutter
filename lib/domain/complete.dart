@@ -28,49 +28,13 @@
 // assignee in instead).
 
 import '../core/ids.dart';
-import '../core/op.dart';
+import 'change.dart';
 import 'recurrence.dart';
+
+export 'change.dart';
 
 /// A task (or other entity) row.
 typedef Row = Map<String, Object?>;
-
-/// One entity's field changes inside a batch (web ops.ts `Change`).
-class Change {
-  /// `task`, `reminder`, … (an entity of `opDefaults`).
-  final String entity;
-  final String entityId;
-
-  /// Field → new value. `fields` (custom field values) is a map unfolded into
-  /// `fields.<id>` ops by [changesToOps].
-  final Map<String, Object?> patch;
-
-  const Change(this.entity, this.entityId, this.patch);
-
-  @override
-  String toString() => 'Change($entity/$entityId $patch)';
-}
-
-final RegExp _fieldId = RegExp(r'^[A-Za-z0-9_-]{1,64}$');
-
-/// The ops of one batch: every field of every change, under the same [ts] and
-/// [device] (web mutateMany). [newId] makes each op's id (a uuid v4).
-List<Op> changesToOps(List<Change> changes, {required int ts, required String device, String Function() newId = uuid}) {
-  final ops = <Op>[];
-  for (final c in changes) {
-    c.patch.forEach((field, value) {
-      if (c.entity == 'task' && field == 'fields') {
-        ((value as Map?) ?? const {}).forEach((id, v) {
-          if (_fieldId.hasMatch(id as String)) {
-            ops.add(Op(id: newId(), entity: c.entity, entityId: c.entityId, field: 'fields.$id', value: v, ts: ts, device: device));
-          }
-        });
-        return;
-      }
-      ops.add(Op(id: newId(), entity: c.entity, entityId: c.entityId, field: field, value: value, ts: ts, device: device));
-    });
-  }
-  return ops;
-}
 
 // ---- rows ----
 

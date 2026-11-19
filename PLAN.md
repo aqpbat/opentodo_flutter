@@ -128,7 +128,7 @@
 Все задачи — чистые функции над материализованными строками (M1.3 даёт модели,
 но порты можно писать против Map-строк и уточнить типы после M1.3).
 
-- [ ] **M2.1 Даты и zoned due**
+- [x] **M2.1 Даты и zoned due**
   Читать: `web/src/lib/dates.ts`, `docs/sync.md` §Zoned due values, `internal/zoned`.
   Создать: `lib/domain/dates.dart` (парсинг/форматирование due, «сегодня» с учётом
   day_start, разрешение zoned-значений в момент: gap → первый валидный, overlap →
@@ -172,7 +172,7 @@
   rotation (`nextAssignee` передаётся извне), planCarry/planPast, наполнение записей
   контентом в E2EE. `Change` позже перенести в lib/core.
 
-- [ ] **M2.6 Напоминания: расписание и fire_at**
+- [x] **M2.6 Напоминания: расписание и fire_at**
   Читать: `docs/sync.md` §Reminders, `web/src/lib/defaultReminder.ts`,
   `docs/push-notifications.md` §In the Android app.
   Создать: `lib/domain/reminders.dart` — relative (due+offset; date-only → 09:00
@@ -183,6 +183,11 @@
   Приёмка: векторы defaultReminder проходят; тесты переноса due и гонок
   delivery/snooze.
   Зависимости: M2.1.
+  Итог (M2.1+M2.6): `lib/domain/{dates,reminders,default_reminder,change}.dart`, пакет
+  `timezone`. Общий формат батча — `Change` + `changesToOps` в `lib/domain/change.dart`.
+  Долг: зона устройства не определяется (по умолчанию UTC) — приложение должно звать
+  `setViewerZone()` (нужен `flutter_timezone` или platform channel); форматирование
+  дат (i18n) — в UI-слое.
 
 - [ ] **M2.7 Фильтры saved views**
   Читать: `web/src/lib/filter/evaluate.ts`, `internal/filter`, `docs/filters.md`.
