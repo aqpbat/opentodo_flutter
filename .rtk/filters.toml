@@ -11,3 +11,12 @@ schema_version = 1
 # strip_lines_matching = ["^\\s*$", "^Downloading", "^Installing"]
 # max_lines = 30
 # on_empty = "my-tool: ok"
+
+# Flutter: drop pub get boilerplate, keep changed-dependency lines (+ > ! *)
+[filters.flutter-pub-get]
+description = "Compact flutter pub get output"
+match_command = "^flutter\\s+pub\\s+get"
+strip_ansi = true
+strip_lines_matching = ["^\\s*$", "^Resolving dependencies", "^Downloading", "^Got dependencies"]
+max_lines = 40
+on_empty = "flutter pub get: ok"
