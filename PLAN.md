@@ -231,7 +231,7 @@
   `material_ui` оставлен — в Flutter 3.50 `flutter/material.dart` deprecated в его пользу.
   Не сделано: шрифт Inter, прочие акценты/high contrast, chart-seq.
 
-- [ ] **M3.2 Каркас и навигация**
+- [x] **M3.2 Каркас и навигация**
   Читать: M3.1; `web/src/app/` (структура экранов веба — ориентир).
   Создать: `lib/ui/app.dart` — bottom navigation (Today / Inbox / Projects / Search),
   роутинг, sync-статус pill (synced/syncing/offline/error), pull-to-sync,
@@ -240,7 +240,7 @@
   (тесты с фейковым движком).
   Зависимости: M3.1, M1.5.
 
-- [ ] **M3.3 Setup и Sign-in**
+- [x] **M3.3 Setup и Sign-in**
   Читать: `docs/api.md` §Authentication; `mobile/README.md` §How it fits together
   (правила адреса: https, http только для локальных после предупреждения).
   Создать: `lib/ui/screens/setup.dart` (адрес сервера + health-проверка с названными
@@ -249,6 +249,11 @@
   Приёмка: widget-тесты: неверный адрес → понятная ошибка; MFA-ветка; успешный
   вход ведёт на Today.
   Зависимости: M1.4, M1.7, M3.1.
+  Итог (M3.2+M3.3): `lib/ui/{app,bootstrap,sync_controller,server_address}.dart`,
+  экраны setup/sign_in; вкладки подключаются через `tabBuilder`, данные — `SessionScope`.
+  Долг: E2EE-аккаунт получает `DisabledSyncController` до M4.2 (подключить `E2eeSync`
+  в `openEngineSession`); отозванный токен не ведёт к sign-out; Punycode-хосты не
+  поддержаны; `onApplied` не проброшен в `SyncController`.
 
 - [ ] **M3.4 Списки: Today / Inbox / Project**
   Читать: M2.2, M2.3; `web/src/app/` (внешний вид строк — ориентир).
