@@ -138,6 +138,12 @@ class SqfliteStore extends SyncStore {
       });
 
   @override
+  Future<void> forgetField(String entity, String entityId, String field, {required int ts, required String device}) =>
+      _ex.delete('fields',
+          where: 'entity = ? AND entity_id = ? AND field = ? AND ts = ? AND device = ?',
+          whereArgs: [entity, entityId, field, ts, device]);
+
+  @override
   Future<void> appendOutbox(Iterable<Op> ops) => transaction((tx) async {
         final ex = (tx as SqfliteStore)._ex;
         for (final op in ops) {

@@ -102,6 +102,12 @@ abstract class SyncStore {
   /// register, in input order.
   Future<List<Op>> applyOps(Iterable<Op> ops, {Set<String> rewritten = serverRewrittenFields});
 
+  /// Removes one register when it still holds the clock (ts, device): the
+  /// server refused that write, so its value (served in the same answer) or the
+  /// field's default must win even with an older clock (web sharing.ts
+  /// `forgetRejected`). A newer local edit keeps its register.
+  Future<void> forgetField(String entity, String entityId, String field, {required int ts, required String device});
+
   // --- outbox ---
 
   /// Appends ops to the outbox, after the ones already there. An op whose id
@@ -200,6 +206,13 @@ class MemoryStore extends SyncStore {
         }
         return applied;
       });
+
+  @override
+  Future<void> forgetField(String entity, String entityId, String field, {required int ts, required String device}) async {
+    final row = _fields[entity]?[entityId];
+    final cur = row?[field];
+    if (cur != null && cur.ts == ts && cur.device == device) row!.remove(field);
+  }
 
   @override
   Future<void> appendOutbox(Iterable<Op> ops) async {

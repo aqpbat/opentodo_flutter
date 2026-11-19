@@ -84,6 +84,19 @@ void runSyncStoreContract(Future<SyncStore> Function() open) {
     });
   });
 
+  group('forgetField', () {
+    test('removes the register only while it holds the given clock', () async {
+      await store.applyOps([op('title', 'mine', 300, 'me')]);
+      await store.forgetField('task', 't1', 'title', ts: 299, device: 'me');
+      expect((await store.getField('task', 't1', 'title'))!.value, 'mine');
+      await store.forgetField('task', 't1', 'title', ts: 300, device: 'me');
+      expect(await store.getField('task', 't1', 'title'), isNull);
+      // An older server value can win now.
+      await store.applyOps([op('title', 'server', 100, 'other')]);
+      expect((await store.getField('task', 't1', 'title'))!.value, 'server');
+    });
+  });
+
   group('families', () {
     test('fields.<id> and appends.<id> are separate registers', () async {
       await store.applyOps([

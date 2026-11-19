@@ -72,7 +72,7 @@
   Приёмка: тесты с фейковым `http.Client`: полный login-поток, MFA-ветка,
   401 → ошибка авторизации, 429 → backoff, cookie не утекает в bearer-запросы.
 
-- [ ] **M1.5 SyncEngine: обмен**
+- [x] **M1.5 SyncEngine: обмен**
   Читать: `docs/sync.md` целиком (Exchange, Device ids, Paging, Sharing scopes,
   Log generation, Clocks), `web/src/lib/sync.ts` (цикл), грабли №7–9 в AGENTS.md.
   Создать: `lib/data/sync_engine.dart`:
@@ -89,6 +89,11 @@
   (б) paging >1000 ops; (в) reseed после смены generation; (г) rejected invalid →
   локальная правка заменена серверной; (д) ops своего device не приходят в pull;
   (е) идемпотентность повторной отправки.
+  Итог: `SyncEngine(store, exchange, hlc, device, prepareOutgoing/decodeIncoming)`,
+  `statusStream`, `syncNow/requestSync/start/stop`; фейковый сервер
+  `test/support/fake_sync_server.dart`. В store добавлен `forgetField` (отказ-вердикт).
+  `unknown_field` и прочие не-вердикты удерживаются в meta `held`, повтор раз в минуту.
+  Не сделано: `latest_docs`/`backfill_ack`, memberships/purged/workspaces.
 
 - [ ] **M1.6 Локальные записи + E2EE в обмене**
   Читать: `web/src/lib/ops.ts` (`mutate`), `e2eeSync.ts` (seal/open на границе),
