@@ -2,7 +2,7 @@
 // DO NOT EDIT: run the script again after the server's op schema changes.
 
 /// The row a field op creates when its entity is new (OP_DEFAULTS): one key per
-/// op field, a family (fields.<id>, appends.<id>, reactions.<id>) in one key
+/// op field, a family (`fields.<id>`, `appends.<id>`, `reactions.<id>`) in one key
 /// named after its prefix.
 const Map<String, Map<String, Object?>> opDefaults = {
   'project': {'name': '', 'color': '#64748b', 'position': 0, 'archived': false, 'parent_id': null, 'created_at': 0, 'deleted_at': null, 'icon': null, 'description': '', 'notes_doc': '', 'workspace_id': null, 'flow_mode': '', 'status': '', 'reusable': false, 'aisles': false},
