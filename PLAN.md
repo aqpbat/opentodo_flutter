@@ -193,11 +193,14 @@
   `setViewerZone()` (нужен `flutter_timezone` или platform channel); форматирование
   дат (i18n) — в UI-слое.
 
-- [ ] **M2.7 Фильтры saved views**
+- [x] **M2.7 Фильтры saved views**
   Читать: `web/src/lib/filter/evaluate.ts`, `internal/filter`, `docs/filters.md`.
   Создать: `lib/domain/filter.dart` (парсер query + evaluator),
   `test/vectors/filter/evaluate.vectors.json`, тесты.
   Приёмка: все векторы evaluate проходят.
+  Итог: `lib/domain/filter.dart` (+ `filter/`), 75/75 векторов. Долг: дефолтный
+  `localDue` не переводит zoned due — передавать реализацию на `dates.dart`;
+  `blockedMap` дублируется с `lib/domain/dependencies.dart` — свести в один.
 
 - [x] **M2.8 Urgency-сортировка**
   Читать: `web/src/lib/urgency.ts`, `internal/urgency`.
