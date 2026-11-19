@@ -149,7 +149,7 @@
   Приёмка: векторы closedList проходят; тесты Today на граничные случаи
   (просроченные, evening, zoned due в чужой зоне).
 
-- [ ] **M2.4 Recurrence: грамматика и следующее повторение**
+- [x] **M2.4 Recurrence: грамматика и следующее повторение**
   Читать: `docs/recurrence.md`, `web/src/lib/recurrence.ts`, `internal/recurrence`,
   `web/src/lib/testdata/check10.ts` (замороженная грамматика 1.0).
   Создать: `lib/domain/recurrence.dart` (парсер, canonical form, `Compatible`,
@@ -157,7 +157,7 @@
   `test/vectors/occurrences.vectors.json`, тесты.
   Приёмка: оба набора векторов проходят; правила сохраняются в compatible-форме.
 
-- [ ] **M2.5 Завершение повторяющихся задач**
+- [x] **M2.5 Завершение повторяющихся задач**
   Читать: `docs/sync.md` §Recurring tasks, `docs/recurrence.md` (one occurrence alone),
   `lib/core/ids.dart` (occurrenceId готов).
   Создать: `lib/domain/complete.dart` — батч завершения: occurrence record
@@ -167,6 +167,10 @@
   Приёмка: тесты: два офлайн-завершения одного повторения → один record
   (одинаковый id и due); серия не стоит на датах-исключениях.
   Зависимости: M2.4.
+  Итог: `planCompletion/planSkip/planActOn/planDetach/planRepair` → `List<Change>`,
+  `changesToOps` — один ts/device на батч. Не портировано: split-серии (`split_from`),
+  rotation (`nextAssignee` передаётся извне), planCarry/planPast, наполнение записей
+  контентом в E2EE. `Change` позже перенести в lib/core.
 
 - [ ] **M2.6 Напоминания: расписание и fire_at**
   Читать: `docs/sync.md` §Reminders, `web/src/lib/defaultReminder.ts`,
