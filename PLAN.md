@@ -195,13 +195,16 @@
 
 ## M3. UI-ядро
 
-- [ ] **M3.1 Дизайн-токены → Flutter-тема**
+- [x] **M3.1 Дизайн-токены → Flutter-тема**
   Читать: `web/src/index.css` (токены: цвета, радиусы, elevation, типографика),
   `docs/design-system.md`.
   Создать: `lib/ui/theme.dart` (светлая/тёмная темы из токенов, ThemeExtension
   для семантических цветов), `lib/ui/tokens.dart`; удалить неиспользуемый
   `material_ui` из pubspec; заменить шаблонный `main.dart` каркасом приложения.
   Приёмка: golden-тест палитры/компонентов; `flutter analyze` чистый.
+  Итог: палитра генерируется `tool/sync_tokens.mjs` → `lib/ui/palette_generated.dart`;
+  `material_ui` оставлен — в Flutter 3.50 `flutter/material.dart` deprecated в его пользу.
+  Не сделано: шрифт Inter, прочие акценты/high contrast, chart-seq.
 
 - [ ] **M3.2 Каркас и навигация**
   Читать: M3.1; `web/src/app/` (структура экранов веба — ориентир).
