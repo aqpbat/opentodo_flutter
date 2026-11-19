@@ -31,7 +31,7 @@
 
 ## M1. Слой данных и синхронизация
 
-- [ ] **M1.1 SyncStore: интерфейс + in-memory реализация**
+- [x] **M1.1 SyncStore: интерфейс + in-memory реализация**
   Читать: `docs/sync.md` (Exchange, Log generation), `web/src/lib/db.ts` (структура хранения).
   Создать: `lib/data/store.dart` — интерфейс `SyncStore`:
   поля `(entity, entityId, field) → {valueJson, ts, device}`, чтение строки/всех строк
@@ -41,7 +41,7 @@
   Приёмка: unit-тесты winner rule (tie по device), идемпотентность повторного op,
   семьи `fields.<id>`/`appends.<id>` хранятся как отдельные поля.
 
-- [ ] **M1.2 SyncStore: SQLite-реализация**
+- [x] **M1.2 SyncStore: SQLite-реализация**
   Читать: M1.1 интерфейс; `sqflite` docs.
   Создать: `lib/data/store_sqflite.dart` (таблицы `fields`, `outbox`, `meta`,
   индексы по entity/entityId), миграции схемы БД через `onCreate/onUpgrade`;
@@ -49,7 +49,7 @@
   Приёмка: те же тесты, что M1.1, проходят на SQLite; перезакрытие БД сохраняет
   состояние; транзакция батча атомарна.
 
-- [ ] **M1.3 Материализация строк**
+- [x] **M1.3 Материализация строк**
   Читать: `lib/core/schema_generated.dart` (opDefaults), `web/src/lib/ops.ts`
   (как поля собираются в строку, семьи `fields`/`appends`/`reactions`).
   Создать: `lib/data/rows.dart` — сборка строки сущности из полей с дефолтами,
