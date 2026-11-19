@@ -95,7 +95,7 @@
   `unknown_field` и прочие не-вердикты удерживаются в meta `held`, повтор раз в минуту.
   Не сделано: `latest_docs`/`backfill_ack`, memberships/purged/workspaces.
 
-- [ ] **M1.6 Локальные записи + E2EE в обмене**
+- [x] **M1.6 Локальные записи + E2EE в обмене**
   Читать: `web/src/lib/ops.ts` (`mutate`), `e2eeSync.ts` (seal/open на границе),
   `lib/core/e2ee.dart` (готовый content-слой).
   Создать: `lib/data/mutate.dart` — `mutate(changes)`: батч ops с `hlc.now()` и
@@ -106,6 +106,10 @@
   Приёмка: тесты: правка offline → в outbox → после обмена сервер видит конверт
   (для encrypted) или plaintext; входящий конверт расшифровывается; tampered
   конверт не роняет применение батча.
+  Итог: `Mutator.mutate(List<Change>)`/`createTask`, `E2eeSync` (prepareOutgoing/
+  decodeIncoming для SyncEngine); follow-up fire_at напоминаний и default reminder
+  в том же батче. Долг: memberships не хранятся → `sharedProjects` пуст (общие проекты
+  шифровались бы); encrypt-on-sight, reconcileMode, markSent — в M4.
 
 - [x] **M1.7 Состояние аккаунта и безопасное хранение**
   Читать: `docs/api.md` §me (`encryption: {enabled, keyVersion}`), `docs/e2ee.md`.
