@@ -139,12 +139,12 @@
   первый), `test/vectors/zoned.vectors.json`, тесты.
   Приёмка: все векторы zoned проходят.
 
-- [ ] **M2.2 Inbox**
+- [x] **M2.2 Inbox**
   Читать: `web/src/lib/inbox.ts`, `internal/inbox`.
   Создать: `lib/domain/inbox.dart`, `test/vectors/inbox.vectors.json`, тесты.
   Приёмка: все векторы inbox проходят.
 
-- [ ] **M2.3 Today и Upcoming**
+- [x] **M2.3 Today и Upcoming**
   Читать: `web/src/lib/dayLists.ts`, `closedList.ts`, `docs/day-parts.md`,
   `web/src/lib/dayParts.ts`.
   Создать: `lib/domain/today.dart` (просрочено/сегодня/вечер, day parts,
@@ -199,7 +199,7 @@
   `test/vectors/filter/evaluate.vectors.json`, тесты.
   Приёмка: все векторы evaluate проходят.
 
-- [ ] **M2.8 Urgency-сортировка**
+- [x] **M2.8 Urgency-сортировка**
   Читать: `web/src/lib/urgency.ts`, `internal/urgency`.
   Создать: `lib/domain/urgency.dart`, `test/vectors/urgency.vectors.json`, тесты.
   Приёмка: все векторы urgency проходят.
