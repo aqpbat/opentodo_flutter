@@ -58,7 +58,7 @@
   Приёмка: тесты на дефолты каждой MVP-сущности; отсутствующее поле → дефолт;
   `deleted_at != null` исключает строку из списков.
 
-- [ ] **M1.4 ApiClient (REST)**
+- [x] **M1.4 ApiClient (REST)**
   Читать: `docs/api.md` §Authentication (поток `ot login`: login → cookie →
   POST tokens → secret → logout; MFA challenge → POST auth/mfa), §Health and
   authentication, §End-to-end encryption (GET/PUT encryption/keys), грабли №6 в AGENTS.md.
@@ -102,7 +102,7 @@
   (для encrypted) или plaintext; входящий конверт расшифровывается; tampered
   конверт не роняет применение батча.
 
-- [ ] **M1.7 Состояние аккаунта и безопасное хранение**
+- [x] **M1.7 Состояние аккаунта и безопасное хранение**
   Читать: `docs/api.md` §me (`encryption: {enabled, keyVersion}`), `docs/e2ee.md`.
   Создать: `lib/data/account.dart` — `AccountState` (serverUrl, userId, email,
   encrypted, keyVersion, deviceId); токен и DEK — `flutter_secure_storage`;
@@ -110,6 +110,10 @@
   очистить БД и secure storage (epoch, как `stopSync` в web).
   Приёмка: тесты с фейковым secure storage: сохранение/восстановление сессии,
   sign-out очищает всё, смена сервера = новый deviceId не требуется, но данные сбрасываются.
+  Итог: `AccountManager` с хуками `stopSync`/`clearLocalData`, `epoch`. Отклонение:
+  после локального wipe генерируется новый deviceId (как веб: иначе pull с cursor=0
+  пропустит собственные старые ops). Сессионная cookie хранится в secure storage для
+  PUT key record. Не сделано: 403 `reauth_required`, PKCE app sign-in.
 
 - [ ] **M1.8 Контрактный тест против живого сервера** ⚠️ нужен тестовый аккаунт
   Читать: AGENTS.md (сервер), `docs/api.md`.
