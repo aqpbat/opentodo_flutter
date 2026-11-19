@@ -1,17 +1,22 @@
 import 'package:material_ui/material_ui.dart';
 
+import 'ui/app.dart';
+import 'ui/bootstrap.dart';
 import 'ui/theme.dart';
 
 void main() {
-  runApp(const OpenTodoApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  final controller = AppController(AppDeps.production());
+  runApp(OpenTodoApp(home: AppRoot(controller: controller)));
 }
 
 /// The app root: themes from the design tokens, following the system
-/// light/dark preference like the web app. Navigation arrives in M3.2.
+/// light/dark preference like the web app. [home] is the [AppRoot] in the
+/// app (session restore → setup → sign-in → shell).
 class OpenTodoApp extends StatelessWidget {
   const OpenTodoApp({super.key, this.home});
 
-  /// The first screen; a placeholder until the app shell exists.
+  /// The first screen; a placeholder when null (theme tests).
   final Widget? home;
 
   @override
