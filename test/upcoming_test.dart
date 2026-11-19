@@ -5,8 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:opentodo_flutter/domain/local_day.dart';
 import 'package:opentodo_flutter/domain/upcoming.dart';
 
-import 'support/test_zones.dart';
-
 Map<String, dynamic> _task(
   String id, {
   Map<String, dynamic>? due,
@@ -100,11 +98,11 @@ void main() {
   test('a zoned due is listed under the viewer\'s day', () {
     // 20:00 New York on Nov 2 is Nov 3, 02:00 in Berlin.
     final t = _task('ny', due: {'date': '2026-11-02', 'time': '20:00', 'tz': 'America/New_York'});
-    const berlin = ViewerZone('Europe/Berlin', offsetOf: testZoneOffset);
+    const berlin = ViewerZone('Europe/Berlin');
     expect(inUpcoming(t, today, berlin), isTrue);
     expect(upcomingDate(t, berlin), '2026-11-03');
     // ...and 17:00 on Nov 2 in Los Angeles: Today there, not Upcoming.
-    const la = ViewerZone('America/Los_Angeles', offsetOf: testZoneOffset);
+    const la = ViewerZone('America/Los_Angeles');
     expect(inUpcoming(t, today, la), isFalse);
   });
 
