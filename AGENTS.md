@@ -8,9 +8,9 @@
 
 | Что | Где |
 | --- | --- |
-| Этот проект | `/Users/aqpbat/Projects/OpenTodoFlutter` |
-| Upstream OpenTodo (READ-ONLY, источник контрактов) | `/Users/aqpbat/Projects/OpenTodo` |
-| Рабочий сервер | https://opentodoappopentodostable-production-9a23ffbb.up.railway.app (v1.5.0) |
+| Этот проект | `.` (корень репозитория) |
+| Upstream OpenTodo (READ-ONLY, источник контрактов) | `../OpenTodo` (соседняя директория) |
+| Рабочий сервер | Railway (адрес — в Railway dashboard, в репозиторий не коммитится) |
 | План задач | `PLAN.md` (задачи M1.1 … M6.x, критерии приёмки, зависимости) |
 
 **Upstream-репозиторий не изменять никогда.** Оттуда только читают контракты и копируют
